@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Maya Reynolds Therapy Website"
+description = "A calm, polished therapist website for Dr. Maya Reynolds, PsyD, with responsive navigation, service information, office gallery, FAQs, and consultation contact flow for adults in Santa Monica and across California."
+version = "1.0.0"
+id = "artifacts/maya-reynolds-therapy"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 22552
+
+[services.development]
+run = "pnpm --filter @workspace/maya-reynolds-therapy run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/maya-reynolds-therapy", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/maya-reynolds-therapy/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "22552"
+BASE_PATH = "/"
